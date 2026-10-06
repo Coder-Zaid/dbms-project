@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dairy Farm Studio • Enterprise DBMS Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="studio-container">
+    
+    <!-- LEFT SIDEBAR -->
+    <aside class="studio-sidebar">
+      <div class="sidebar-brand" data-info-key="schema_db">
+        <div class="brand-glyph">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <ellipse cx="12" cy="5" rx="9" ry="3"/>
+            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">DAIRY FARM STUDIO</span>
+          <span class="brand-db">dairy_farm_db</span>
+        </div>
+      </div>
+
+      <div class="sidebar-section-label">STUDIO MODULES</div>
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-view="view-dashboard" data-info-key="mod_dashboard">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard & KPIs
+        </button>
+        <button class="nav-item" data-view="view-herd" data-info-key="mod_herd">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Herd Registry (Animals)
+        </button>
+        <button class="nav-item" data-view="view-milk" data-info-key="mod_milk">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2h8l2 6v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V8l2-6z"/><path d="M6 8h12"/></svg>
+          Milk Collection & Yield
+        </button>
+        <button class="nav-item" data-view="view-quality" data-info-key="mod_quality">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg>
+          Quality Control Lab
+        </button>
+        <button class="nav-item" data-view="view-feed" data-info-key="mod_feed">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          Feed & Nutrition Stock
+        </button>
+        <button class="nav-item" data-view="view-sales" data-info-key="mod_sales">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Commercial Sales (Sell Milk)
+        </button>
+        <button class="nav-item" data-view="view-sql" data-info-key="mod_sql">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+          Interactive SQL Studio
+        </button>
+        <button class="nav-item" data-view="view-schema" data-info-key="mod_schema">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+          Schema & Table Inspector
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="conn-card" data-info-key="db_conn">
+          <div class="conn-indicator">
+            <span class="status-dot"></span>
+            <span class="conn-name">localhost:3306</span>
+          </div>
+          <span class="conn-engine">MySQL Community 8.0.46</span>
+          <span class="conn-meta">ACID Isolation: Repeatable Read</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN STUDIO WORKSPACE -->
+    <div class="studio-main">
+      
+      <!-- TOP STATUS BAR -->
+      <header class="studio-topbar">
+        <div class="topbar-left">
+          <span class="topbar-badge badge-mysql" data-info-key="badge_mysql">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Active Schema: dairy_farm_db
+          </span>
+          <span class="topbar-badge badge-status" data-info-key="badge_3nf">
+            14 Tables • 100% 3NF Verified
+          </span>
+        </div>
+        <div class="topbar-right">
+          <!-- Light / Dark Theme Switcher Button -->
+          <button class="theme-toggle-btn" id="theme-toggle-btn" onclick="toggleTheme()" data-info-key="theme_toggle" title="Toggle Light / Dark Theme">
+            ☀️ Light Theme
+          </button>
+          
+          <button class="btn btn-secondary btn-sm" onclick="openAddAnimalModal()" data-info-key="btn_register_cattle">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            + Register Cattle
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="openAddMilkModal()" data-info-key="btn_log_yield">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            + Log Milk Yield
+          </button>
+          <button class="btn btn-primary btn-sm" onclick="openAddSaleModal()" data-info-key="btn_sell_milk">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            + Sell Milk
+          </button>
+        </div>
+      </header>
+
+      <!-- LIVE TRANSACTION AUDIT BANNER -->
+      <div id="tx-log-container" class="tx-banner hidden">
+        <div class="tx-banner-inner">
+          <div class="tx-banner-badge" id="tx-type-tag">TRANSACTION COMMITTED</div>
+          <div class="tx-banner-text" id="tx-message"></div>
+          <div class="tx-stats-group">
+            <span class="tx-pill">Table: <strong id="tx-table-name">—</strong></span>
+            <span class="tx-pill">Before: <strong id="tx-before-val">—</strong></span>
+            <span class="tx-pill">After: <strong id="tx-after-val">—</strong></span>
+            <span class="tx-pill tx-pill-delta">Delta: <strong id="tx-delta-val">—</strong></span>
+          </div>
+          <button class="tx-close-btn" onclick="closeTxLog()">✕</button>
+        </div>
+      </div>
+
+      <!-- WORKSPACE VIEWS -->
+      <div class="workspace-content">
+
+        <!-- VIEW 1: DASHBOARD -->
+        <section id="view-dashboard" class="studio-view active">
+          <div class="view-header">
+            <div>
+              <h2 class="view-title">Enterprise Farm Telemetry</h2>
+              <p class="view-subtitle">Live aggregated production, livestock inventory, and commercial metrics from MySQL Server 8.0.</p>
+            </div>
+            <div class="header-action-group">
+              <button class="btn btn-secondary btn-sm" onclick="openAddFeedModal()" data-info-key="btn_dispense_feed">+ Dispense Feed</button>
+              <button class="btn btn-primary btn-sm" onclick="openAddSaleModal()" data-info-key="btn_sell_milk">+ Sell Milk Lot</button>
+            </div>
+          </div>
+
+          <div class="metrics-grid">
+            <div class="metric-card" data-info-key="kpi_herd">
+              <span class="metric-label">TOTAL REGISTERED HERD</span>
+              <div class="metric-value-wrap">
+                <span class="metric-number" id="kpi-total-animals">50</span>
+                <span class="metric-trend trend-neutral">50 Base Records</span>
+              </div>
+              <span class="metric-subtext">Table: <code>animal</code> • Ear-tag indexed</span>
+            </div>
+
+            <div class="metric-card" data-info-key="kpi_milk">
+              <span class="metric-label">CUMULATIVE MILK YIELD</span>
+              <div class="metric-value-wrap">
+                <span class="metric-number" id="kpi-total-milk">991.0 L</span>
+                <span class="metric-trend trend-positive">50 Sessions</span>
+              </div>
+              <span class="metric-subtext">Table: <code>milk_yield</code> • Auto-checked</span>
+            </div>
+
+            <div class="metric-card" data-info-key="kpi_revenue">
+              <span class="metric-label">COMMERCIAL INVOICED REVENUE</span>
+              <div class="metric-value-wrap">
+                <span class="metric-number" id="kpi-total-revenue">₹18,905.00</span>
+                <span class="metric-trend trend-positive">3NF Reconciled</span>
+              </div>
+              <span class="metric-subtext">Trigger: <code>after_sale_item</code></span>
+            </div>
+
+            <div class="metric-card" data-info-key="kpi_feed">
+              <span class="metric-label">FEED REORDER ALERTS</span>
+              <div class="metric-value-wrap">
+                <span class="metric-number" id="kpi-low-stock">0</span>
+                <span class="metric-trend trend-neutral">Stock Safe</span>
+              </div>
+              <span class="metric-subtext">Trigger: <code>before_feed_issue</code></span>
+            </div>
+          </div>
+
+          <div class="studio-panel-grid">
+            <div class="panel" data-info-key="panel_shifts">
+              <div class="panel-header">
+                <h3>Milking Shift Harvest Distribution</h3>
+                <span class="panel-tag">Morning vs Evening</span>
+              </div>
+              <div class="panel-body">
+                <div class="shift-stats-list" id="shift-stats-container">
+                  <!-- Injected via app.js -->
+                </div>
+              </div>
+            </div>
+
+            <div class="panel" data-info-key="panel_quality">
+              <div class="panel-header">
+                <h3>Laboratory Quality Averages</h3>
+                <span class="panel-tag">quality_test</span>
+              </div>
+              <div class="panel-body">
+                <div class="quality-badges-grid" id="quality-overview-container">
+                  <!-- Injected via app.js -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel mt-4" data-info-key="panel_breeds">
+            <div class="panel-header">
+              <h3>Top 5 Cattle Breeds by Population</h3>
+              <span class="panel-tag">breed table classification</span>
+            </div>
+            <div class="panel-body">
+              <div class="table-responsive">
+                <table class="studio-table" id="dashboard-breeds-table">
+                  <thead>
+                    <tr>
+                      <th>Breed Name</th>
+                      <th>Registered Headcount</th>
+                      <th>Biological Category</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dashboard-breeds-tbody">
+                    <!-- Injected via app.js -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 2: HERD REGISTRY -->
+        <section id="view-herd" class="studio-view">
+          <div class="view-header">
+            <div>
+              <h2 class="view-title">Cattle Master Registry</h2>
+              <p class="view-subtitle">Biological lifecycle tracking with foreign key cascades into clinical and reproductive logs.</p>
+            </div>
+            <button class="btn btn-primary" onclick="openAddAnimalModal()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              + Register Cattle
+            </button>
+          </div>
+
+          <div class="studio-table-container">
+            <div class="table-filter-bar">
+              <div class="filter-left">
+                <input type="text" id="animal-search-input" class="search-input" placeholder="Search by name, ear tag or breed..." oninput="filterAnimals()">
+                <select id="animal-status-filter" class="filter-select" onchange="filterAnimals()">
+                  <option value="ALL">All Statuses</option>
+                  <option value="Active">Active</option>
+                  <option value="Sold">Sold</option>
+                  <option value="Deceased">Deceased</option>
+                  <option value="Transferred">Transferred</option>
+                </select>
+              </div>
+              <span class="counter-badge" id="animal-count-pill">50 Records in MySQL</span>
+            </div>
+
+            <div class="table-responsive">
+              <table class="studio-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Cattle Name & Ear Tag</th>
+                    <th>Breed Name</th>
+                    <th>Gender</th>
+                    <th>Date of Birth</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="animals-tbody">
+                  <tr><td colspan="7" class="loading-state">Loading cattle records...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 3: MILK COLLECTION -->
+        <section id="view-milk" class="studio-view">
+          <div class="view-header">
+            <div>
+              <h2 class="view-title">Milking Sessions & Yield Harvests</h2>
+              <p class="view-subtitle">Normalized 2-table logging across <code>milking_session</code> and <code>milk_yield</code>.</p>
+            </div>
+            <button class="btn btn-primary" onclick="openAddMilkModal()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              + Log Milk Yield
+            </button>
+          </div>
+
+          <div class="studio-table-container">
+            <div class="table-filter-bar">
+              <input type="text" id="milk-search-input" class="search-input" placeholder="Search by cow name, tag, shift, or date..." oninput="filterMilkRecords()">
+              <span class="counter-badge" id="milk-count-pill">50 Harvest Lots</span>
+            </div>
+
+            <div class="table-responsive">
+              <table class="studio-table">
+                <thead>
+                  <tr>
+                    <th>Session ID</th>
+                    <th>Cattle Name & Ear Tag</th>
+                    <th>Breed</th>
+                    <th>Harvest Date</th>
+                    <th>Time</th>
+                    <th>Shift</th>
+                    <th>Yield (Litres)</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="milk-tbody">
+                  <tr><td colspan="8" class="loading-state">Loading milk records...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 4: QUALITY CONTROL -->
+        <section id="view-quality" class="studio-view">
+          <div class="view-header">
+            <div>
+              <h2 class="view-title">Laboratory Milk Quality Control</h2>
+              <p class="view-subtitle">Grading butterfat percentage, solids-not-fat (SNF), and specific gravity density.</p>
+            </div>
+            <button class="btn btn-primary" onclick="openAddQualityModal()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              + Record Quality Assay
+            </button>
+          </div>
+
+          <div class="studio-table-container">
+            <div class="table-responsive">
+              <table class="studio-table">
+                <thead>
+                  <tr>
+                    <th>Test ID</th>
+                    <th>Yield Lot</th>
+                    <th>Cattle Name & Ear Tag</th>
+                    <th>Test Date</th>
+                    <th>Butterfat %</th>
+                    <th>SNF %</th>
+                    <th>Density (g/cm³)</th>
+                    <th>Commercial Grade</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="quality-tbody">
+                  <tr><td colspan="9" class="loading-state">Loading quality test records...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 5: FEED & WAREHOUSE -->
+        <section id="view-feed" class="studio-view">
+          <div class="view-header">
+            <div>
+              <h2 class="view-title">Feed Inventory & Animal Dispensation</h2>
+              <p class="view-subtitle">Stock levels monitored by triggers <code>before_feed_issue</code> and <code>after_feed_issue</code>.</p>
+            </div>
+            <button class="btn btn-primary" onclick="openAddFeedModal()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              + Dispense Feed to Cattle
+            </button>
+          </div>
+
+          <div class="studio-panel-grid">
+            <div class="panel">
+              <div class="panel-header">
+                <h3>Warehouse Commodities Catalog</h3>
+                <span class="panel-tag">Inventory Master</span>
+              </div>
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <table class="studio-table">
+                    <thead>
+                      <tr>
+                        <th>Feed Name</th>
+                        <th>Unit</th>
+                        <th>Available Stock</th>
+                        <th>Reorder Level</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="feed-items-tbody">
+                      <tr><td colspan="5" class="loading-state">Loading inventory...</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header">
+                <h3>Recent Cattle Feed Issues</h3>
+                <span class="panel-tag">Trigger Tracked</span>
+              </div>
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <table class="studio-table">
+                    <thead>
+                      <tr>
+                        <th>Issue ID</th>
+                        <th>Feed Commodity</th>
+                        <th>Cattle Name & Tag</th>
+                        <th>Date</th>
+                        <th>Dispensed</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="feed-issues-tbody">
+                      <tr><td colspan="6" class="loading-state">Loading issue logs...</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 6: COMMERCIAL SALES & 3NF BILLING -->
+        <section id="view-sales" class="studio-view">
+          <div class="view-header">
+            <div>
+              <h2 class="view-title">Commercial Sales & Account Reconciliation</h2>
+              <p class="view-subtitle">3NF normalized invoice headers linked to <code>sale_item</code> and <code>payment</code> receipts.</p>
+            </div>
+            <button class="btn btn-primary" onclick="openAddSaleModal()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              + Sell Milk (Create Invoice)
+            </button>
+          </div>
+
+          <div class="studio-table-container">
+            <div class="table-responsive">
+              <table class="studio-table">
+                <thead>
+                  <tr>
+                    <th>Invoice #</th>
+                    <th>Buyer / Co-operative</th>
+                    <th>Contact</th>
+                    <th>Invoice Date</th>
+                    <th>Billed Total</th>
+                    <th>Amount Paid</th>
+                    <th>Balance Due</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="sales-tbody">
+                  <tr><td colspan="9" class="loading-state">Loading commercial invoices...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 7: INTERACTIVE SQL STUDIO -->
+        <section id="view-sql" class="studio-view">
+          <div class="view-header">
+            <div>
+              <h2 class="view-title">Interactive SQL Studio</h2>
+              <p class="view-subtitle">Execute live queries against <code>dairy_farm_db</code> with real-time execution telemetry.</p>
+            </div>
+          </div>
+
+          <div class="sql-studio-card">
+            <div class="sql-preset-toolbar">
+              <span class="preset-label">Preset Queries:</span>
+              <button class="preset-btn" onclick="loadSQLPreset('q29')">★ Trace Animal #20 (Presentation-II)</button>
+              <button class="preset-btn" onclick="loadSQLPreset('shifts')">Shift Production Aggregates</button>
+              <button class="preset-btn" onclick="loadSQLPreset('quality')">Grade A Milk Lots</button>
+              <button class="preset-btn" onclick="loadSQLPreset('summary')">View: animal_milk_summary</button>
+            </div>
+
+            <div class="sql-editor-wrap">
+              <textarea id="sql-query-input" class="sql-textarea" rows="7" spellcheck="false">SELECT a.animal_id, a.animal_tag, b.breed_name, my.quantity_litres,
+       qt.fat_percentage, qt.snf_percentage, si.quantity_sold, s.total_amount, bu.buyer_name
+FROM animal a
+JOIN breed b ON a.breed_id = b.breed_id
+JOIN milking_session ms ON a.animal_id = ms.animal_id
+JOIN milk_yield my ON ms.session_id = my.session_id
+LEFT JOIN quality_test qt ON my.yield_id = qt.yield_id
+LEFT JOIN sale_item si ON my.yield_id = si.yield_id
+LEFT JOIN sale s ON si.sale_id = s.sale_id
+LEFT JOIN buyer bu ON s.buyer_id = bu.buyer_id
+WHERE a.animal_id = 20;</textarea>
+            </div>
+
+            <div class="sql-actions-bar">
+              <span class="sql-hint">Supports SELECT, SHOW, DESCRIBE, EXPLAIN on MySQL 8.0</span>
+              <div class="sql-right-actions">
+                <span class="sql-telemetry" id="sql-telemetry-text">Ready</span>
+                <button class="btn btn-primary" id="btn-run-sql" onclick="runSQLQuery()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  Execute Query
+                </button>
+              </div>
+            </div>
+
+            <div class="sql-results-wrap mt-4" id="sql-results-container">
+              <div class="empty-sql-prompt">Execute a query above to inspect live tabular results.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 8: SCHEMA & TABLE INSPECTOR -->
+        <section id="view-schema" class="studio-view">
+          <div class="view-header">
+            <div>
+              <h2 class="view-title">Schema & Relational Architecture Inspector</h2>
+              <p class="view-subtitle">Authoritative inventory of all 14 base relations, primary keys, and foreign keys.</p>
+            </div>
+          </div>
+
+          <div class="studio-table-container">
+            <div class="table-responsive">
+              <table class="studio-table">
+                <thead>
+                  <tr>
+                    <th>Table Name</th>
+                    <th>Engine</th>
+                    <th>Row Count</th>
+                    <th>Primary Key</th>
+                    <th>Foreign Keys</th>
+                    <th>Normalization</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code>breed</code></td><td>InnoDB</td><td>50</td><td><code>breed_id</code></td><td>None (Root Lookup)</td><td><span class="badge badge-success">3NF</span></td></tr>
+                  <tr><td><code>animal</code></td><td>InnoDB</td><td>50</td><td><code>animal_id</code></td><td><code>breed_id</code></td><td><span class="badge badge-success">3NF</span></td></tr>
+                  <tr><td><code>health_visit</code></td><td>InnoDB</td><td>50</td><td><code>visit_id</code></td><td><code>animal_id</code> [CASCADE]</td><td><span class="badge badge-success">3NF</span></td></tr>
+                  <tr><td><code>vaccination</code></td><td>InnoDB</td><td>50</td><td><code>vaccination_id</code></td><td><code>animal_id</code> [CASCADE]</td><td><span class="badge badge-success">3NF</span></td></tr>
+                  <tr><td><code>breeding_event</code></td><td>InnoDB</td><td>50</td><td><code>breeding_id</code></td><td><code>animal_id</code> [CASCADE], <code>sire_id</code> [SET NULL]</td><td><span class="badge badge-success">3NF (Unary)</span></td></tr>
+                  <tr><td><code>feed_item</code></td><td>InnoDB</td><td>50</td><td><code>feed_id</code></td><td>None (Warehouse Master)</td><td><span class="badge badge-success">3NF</span></td></tr>
+                  <tr><td><code>feed_issue</code></td><td>InnoDB</td><td>50</td><td><code>issue_id</code></td><td><code>feed_id</code>, <code>animal_id</code></td><td><span class="badge badge-success">3NF (Associative)</span></td></tr>
+                  <tr><td><code>milking_session</code></td><td>InnoDB</td><td>50</td><td><code>session_id</code></td><td><code>animal_id</code> [CASCADE]</td><td><span class="badge badge-success">3NF</span></td></tr>
+                  <tr><td><code>milk_yield</code></td><td>InnoDB</td><td>50</td><td><code>yield_id</code></td><td><code>session_id</code> [CASCADE]</td><td><span class="badge badge-success">3NF</span></td></tr>
+                  <tr><td><code>quality_test</code></td><td>InnoDB</td><td>50</td><td><code>test_id</code></td><td><code>yield_id</code> [CASCADE]</td><td><span class="badge badge-success">3NF</span></td></tr>
+                  <tr><td><code>buyer</code></td><td>InnoDB</td><td>50</td><td><code>buyer_id</code></td><td>None (Customer Master)</td><td><span class="badge badge-success">3NF</span></td></tr>
+                  <tr><td><code>sale</code></td><td>InnoDB</td><td>50</td><td><code>sale_id</code></td><td><code>buyer_id</code></td><td><span class="badge badge-success">3NF (Invoice Header)</span></td></tr>
+                  <tr><td><code>sale_item</code></td><td>InnoDB</td><td>50</td><td><code>(sale_id, yield_id)</code></td><td><code>sale_id</code> [CASCADE], <code>yield_id</code></td><td><span class="badge badge-success">3NF (Composite PK)</span></td></tr>
+                  <tr><td><code>payment</code></td><td>InnoDB</td><td>50</td><td><code>payment_id</code></td><td><code>sale_id</code> [CASCADE]</td><td><span class="badge badge-success">3NF</span></td></tr>
+                  <tr><td><code>animal_milk_summary</code></td><td>SQL VIEW</td><td>50</td><td>—</td><td>Joined View</td><td><span class="badge badge-info">Derived View</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MODAL 1: ADD ANIMAL -->
+  <div id="add-animal-modal" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Register Cattle in dairy_farm_db</h3>
+        <button class="modal-close" onclick="closeAddAnimalModal()">✕</button>
+      </div>
+      <form id="add-animal-form" onsubmit="submitAnimalForm(event)">
+        <div class="form-group">
+          <label>Animal Ear Tag <span class="req">*</span></label>
+          <input type="text" id="animal-tag-input" class="form-control" required placeholder="e.g. A9999" maxlength="50">
+          <span class="form-hint">Enforced by UNIQUE KEY constraint on animal.animal_tag</span>
+        </div>
+        <div class="form-group">
+          <label>Breed Classification <span class="req">*</span></label>
+          <select id="animal-breed-select" class="form-control" required>
+            <option value="">Select a breed...</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-half">
+            <label>Gender <span class="req">*</span></label>
+            <select id="animal-gender-select" class="form-control" required>
+              <option value="Female">Female</option>
+              <option value="Male">Male</option>
+            </select>
+          </div>
+          <div class="form-group col-half">
+            <label>Date of Birth <span class="req">*</span></label>
+            <input type="date" id="animal-dob-input" class="form-control" required value="2023-01-15">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Operational Status <span class="req">*</span></label>
+          <select id="animal-status-select" class="form-control" required>
+            <option value="Active">Active</option>
+            <option value="Sold">Sold</option>
+            <option value="Deceased">Deceased</option>
+            <option value="Transferred">Transferred</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeAddAnimalModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-animal">Execute SQL INSERT</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: ADD MILK RECORD -->
+  <div id="add-milk-modal" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Log Milking Session & Harvest Lot</h3>
+        <button class="modal-close" onclick="closeAddMilkModal()">✕</button>
+      </div>
+      <form id="add-milk-form" onsubmit="submitMilkForm(event)">
+        <div class="form-group">
+          <label>Milked Cattle <span class="req">*</span></label>
+          <select id="milk-animal-select" class="form-control" required>
+            <option value="">Select cattle...</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-half">
+            <label>Session Date <span class="req">*</span></label>
+            <input type="date" id="milk-date-input" class="form-control" required>
+          </div>
+          <div class="form-group col-half">
+            <label>Time <span class="req">*</span></label>
+            <input type="time" id="milk-time-input" class="form-control" required value="06:30">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-half">
+            <label>Milking Shift <span class="req">*</span></label>
+            <select id="milk-shift-select" class="form-control" required>
+              <option value="Morning">Morning</option>
+              <option value="Evening">Evening</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group col-half">
+            <label>Harvest Volume (Litres) <span class="req">*</span></label>
+            <input type="number" id="milk-qty-input" class="form-control" required step="0.5" min="0.5" max="50" placeholder="e.g. 18.5">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeAddMilkModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-milk">Commit 2-Table Transaction</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 3: SELL MILK (COMMERCIAL SALE) -->
+  <div id="add-sale-modal" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Sell Milk • Create Commercial Invoice (3NF)</h3>
+        <button class="modal-close" onclick="closeAddSaleModal()">✕</button>
+      </div>
+      <form id="add-sale-form" onsubmit="submitSaleForm(event)">
+        <div class="form-group">
+          <label>Buyer / Dairy Cooperative <span class="req">*</span></label>
+          <select id="sale-buyer-select" class="form-control" required>
+            <option value="">Select a buyer...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Harvested Milk Yield Lot <span class="req">*</span></label>
+          <select id="sale-yield-select" class="form-control" required onchange="handleYieldSelectChange()">
+            <option value="">Select available yield lot...</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-half">
+            <label>Sale Date <span class="req">*</span></label>
+            <input type="date" id="sale-date-input" class="form-control" required>
+          </div>
+          <div class="form-group col-half">
+            <label>Quantity to Sell (Litres) <span class="req">*</span></label>
+            <input type="number" id="sale-qty-input" class="form-control" required step="0.5" min="0.5" max="100" placeholder="e.g. 10.0" oninput="calculateSaleTotal()">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-half">
+            <label>Rate per Litre (₹) <span class="req">*</span></label>
+            <input type="number" id="sale-rate-input" class="form-control" required step="1" min="10" max="200" value="49" oninput="calculateSaleTotal()">
+          </div>
+          <div class="form-group col-half">
+            <label>Billed Total</label>
+            <input type="text" id="sale-total-preview" class="form-control" readonly value="₹490.00" style="font-weight:700; color:var(--primary); font-family:var(--font-mono);">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-half">
+            <label>Initial Payment (₹)</label>
+            <input type="number" id="sale-pay-amount" class="form-control" step="1" min="0" placeholder="0 for full credit">
+          </div>
+          <div class="form-group col-half">
+            <label>Payment Mode</label>
+            <select id="sale-pay-method" class="form-control">
+              <option value="UPI">UPI / Digital</option>
+              <option value="Bank Transfer">Bank Transfer (NEFT/RTGS)</option>
+              <option value="Cash">Cash Receipt</option>
+              <option value="Cheque">Cheque</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeAddSaleModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-sale">Commit Sale (Sale + Sale Item)</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 4: RECORD QUALITY ASSAY -->
+  <div id="add-quality-modal" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Laboratory Quality Assay Test</h3>
+        <button class="modal-close" onclick="closeAddQualityModal()">✕</button>
+      </div>
+      <form id="add-quality-form" onsubmit="submitQualityForm(event)">
+        <div class="form-group">
+          <label>Milk Yield Lot to Test <span class="req">*</span></label>
+          <select id="quality-yield-select" class="form-control" required>
+            <option value="">Select yield lot...</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-half">
+            <label>Test Date <span class="req">*</span></label>
+            <input type="date" id="quality-date-input" class="form-control" required>
+          </div>
+          <div class="form-group col-half">
+            <label>Butterfat % (Min 3.5% Grade A) <span class="req">*</span></label>
+            <input type="number" id="quality-fat-input" class="form-control" required step="0.05" min="1.0" max="10.0" value="4.20">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-half">
+            <label>SNF % Solids-Not-Fat (Min 8.5%) <span class="req">*</span></label>
+            <input type="number" id="quality-snf-input" class="form-control" required step="0.05" min="4.0" max="15.0" value="8.80">
+          </div>
+          <div class="form-group col-half">
+            <label>Specific Density (g/cm³) <span class="req">*</span></label>
+            <input type="number" id="quality-density-input" class="form-control" required step="0.001" min="1.000" max="1.050" value="1.031">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeAddQualityModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-quality">Save Assay in quality_test</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 5: DISPENSE FEED -->
+  <div id="add-feed-modal" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Dispense Commodity Feed to Cattle</h3>
+        <button class="modal-close" onclick="closeAddFeedModal()">✕</button>
+      </div>
+      <form id="add-feed-form" onsubmit="submitFeedForm(event)">
+        <div class="form-group">
+          <label>Commodity Feed Item <span class="req">*</span></label>
+          <select id="feed-item-select" class="form-control" required>
+            <option value="">Select feed commodity...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Recipient Cattle <span class="req">*</span></label>
+          <select id="feed-animal-select" class="form-control" required>
+            <option value="">Select cattle...</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-half">
+            <label>Dispensation Date <span class="req">*</span></label>
+            <input type="date" id="feed-date-input" class="form-control" required>
+          </div>
+          <div class="form-group col-half">
+            <label>Dispensed Quantity <span class="req">*</span></label>
+            <input type="number" id="feed-qty-input" class="form-control" required step="0.5" min="0.5" max="100" placeholder="e.g. 10.0">
+          </div>
+        </div>
+        <span class="form-hint">Enforced by trigger before_feed_issue preventing negative warehouse inventory.</span>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeAddFeedModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-feed">Dispense Feed (Decrements Stock)</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 6: DELETE CONFIRMATION -->
+  <div id="confirm-delete-modal" class="modal-backdrop hidden">
+    <div class="modal-card modal-card-sm">
+      <div class="modal-header">
+        <h3 id="delete-modal-title">Confirm Database Deletion</h3>
+        <button class="modal-close" onclick="closeDeleteModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p id="delete-modal-desc" class="delete-warning-text"></p>
+        <div class="alert-box">
+          <strong>Referential Integrity Notice:</strong> Executing this statement enforces ACID cascading rules, purging associated logs or updating warehouse stocks in MySQL.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+        <button type="button" class="btn btn-danger" id="btn-confirm-delete">Execute SQL DELETE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GLOBAL SMART DBMS INFO POPOVER (Hover Engine) -->
+  <div id="global-info-popover" class="info-popover">
+    <div class="popover-header">
+      <span class="popover-badge" id="popover-category">DATABASE METRIC</span>
+      <span class="popover-badge-pill" id="popover-pill">InnoDB 8.0</span>
+    </div>
+    <div class="popover-title" id="popover-title">Metric Title</div>
+    <div class="popover-desc" id="popover-desc">Detailed schema definition and technical operational explanation.</div>
+    <div class="popover-grid" id="popover-grid"></div>
+    <div class="popover-rule" id="popover-rule">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      <span id="popover-rule-text">Constraint / Rule</span>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
