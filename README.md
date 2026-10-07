@@ -18,16 +18,14 @@ DBMS-Course-Project/
 ├── Presentation-I/
 │   └── Presentation-I_Problem_Description.pdf      # Problem identification, data silos, operational scope
 ├── Presentation-II/
-│   ├── Presentation-II_Database_Architecture.pdf   # 10-slide architectural deck (Exported from Gamma)
+│   ├── Presentation-II_Database_Architecture.pdf   # 10-slide architectural deck
 │   ├── Presentation-II_Database_Architecture.pptx  # 10-slide PowerPoint presentation deck
-│   ├── GAMMA_IMPORT_Presentation-II.md             # Markdown source for Gamma.app
 │   ├── ER_Diagram_and_Relational_Schema.png        # Conceptual ER model & 3NF relational schema
 │   ├── Queries_for_DBMS_project.sql                # 30+ production queries (including Query #29)
 │   └── dairy_farm_db_full.sql                      # Complete MySQL dump (DDL, DML, Triggers, Views)
 ├── Presentation-III/
-│   ├── Presentation-III_Live_Demonstration.pdf     # 10-slide live demo deck (Exported from Gamma)
+│   ├── Presentation-III_Live_Demonstration.pdf     # 10-slide live demo deck
 │   ├── Presentation-III_Live_Demonstration.pptx    # 10-slide PowerPoint presentation deck
-│   ├── GAMMA_IMPORT_Presentation-III.md            # Markdown source for Gamma.app
 │   ├── source_code/                                # Complete FastAPI + Studio CRUD web application
 │   │   ├── backend/                                # Python FastAPI REST API server & PyMySQL connector
 │   │   ├── static/                                 # Enterprise Studio UI (8 modules, before/after audit)
@@ -35,7 +33,7 @@ DBMS-Course-Project/
 │   │   └── run.bat                                 # One-click launch script for Windows
 │   └── screenshots/                                # Live demonstration screenshots
 ├── Project-Report/
-│   └── DBMS_Project_Report_Mohammed_Zaid.docx       # Full 16-section project report
+│   └── DBMS_Project_Report_Mohammed_Zaid.pdf        # Official 16-section PDF project report (5 marks)
 └── README.md                                       # System overview and quick-start instructions
 ```
 
