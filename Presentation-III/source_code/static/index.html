@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/style.css?v=2.1">
 </head>
 <body>
   <div class="studio-container">
@@ -91,6 +91,12 @@
           </span>
         </div>
         <div class="topbar-right">
+          <!-- Hover Info Inspector Toggle Button (Exact Peer to Theme Toggle) -->
+          <button class="theme-toggle-btn" id="hover-toggle-btn" onclick="toggleHoverInfo(event)" data-info-key="hover_toggle" title="Toggle DBMS Hover Info Inspector">
+            <span id="hover-toggle-icon">🔍</span>
+            <span id="hover-toggle-text">Hover Info: Off</span>
+          </button>
+
           <!-- Light / Dark Theme Switcher Button -->
           <button class="theme-toggle-btn" id="theme-toggle-btn" onclick="toggleTheme()" data-info-key="theme_toggle" title="Toggle Light / Dark Theme">
             ☀️ Light Theme
@@ -833,6 +839,6 @@ WHERE a.animal_id = 20;</textarea>
     </div>
   </div>
 
-  <script src="/static/app.js"></script>
+  <script src="/static/app.js?v=2.1"></script>
 </body>
 </html>

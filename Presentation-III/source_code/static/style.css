@@ -382,7 +382,7 @@ html, body {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 6px 12px;
+  padding: 6px 13px;
   border-radius: var(--radius-full);
   font-size: 12px;
   font-weight: 600;
@@ -391,12 +391,25 @@ html, body {
   border: 1px solid var(--hairline);
   color: var(--ink-secondary);
   transition: all 0.15s ease;
+  white-space: nowrap;
+  user-select: none;
 }
 
 .theme-toggle-btn:hover {
   background-color: var(--surface-hover);
   border-color: var(--hairline-strong);
   color: var(--ink);
+}
+
+.theme-toggle-btn.hover-active {
+  background-color: var(--primary-glow);
+  border-color: var(--primary);
+  color: var(--primary);
+  box-shadow: 0 0 10px var(--primary-glow);
+}
+
+#hover-toggle-btn * {
+  pointer-events: none;
 }
 
 /* ==========================================================================
@@ -1297,20 +1310,22 @@ form {
               transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Parent hover illuminates the subtle info hover icon */
-*:hover > .info-hover-icon,
-*:hover > * > .info-hover-icon,
-.info-hover-icon:hover {
-  opacity: 1 !important;
-  color: var(--primary) !important;
-  border-color: var(--primary) !important;
-  background-color: var(--primary-glow) !important;
-  transform: scale(1.18);
-  box-shadow: 0 0 8px var(--primary-glow);
+/* Ensure the intrusive circular ⓘ icons never clutter the clean UI */
+.info-hover-icon {
+  display: none !important;
 }
 
-/* Subtle cursor for elements carrying info hover */
-[data-info-key], [data-info-title] {
+/* When hover info is disabled (default), restore default cursor */
+body:not(.hover-info-enabled) [data-info-key],
+body:not(.hover-info-enabled) [data-info-entity],
+body:not(.hover-info-enabled) [data-info-title] {
+  cursor: inherit !important;
+}
+
+/* Subtle cursor for elements carrying info hover only when enabled */
+body.hover-info-enabled [data-info-key]:not(button):not(a):not(input):not(select),
+body.hover-info-enabled [data-info-entity]:not(button):not(a):not(input):not(select),
+body.hover-info-enabled [data-info-title]:not(button):not(a):not(input):not(select) {
   cursor: help;
 }
 

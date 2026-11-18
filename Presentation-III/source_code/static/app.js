@@ -82,6 +82,7 @@ ORDER BY qt.fat_percentage DESC;`,
 // ============================================================================
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
+  initHoverInfoToggle();
   setupNavigation();
   loadBreeds();
   loadBuyers();
@@ -129,6 +130,60 @@ function toggleTheme() {
   const btn = document.getElementById("theme-toggle-btn");
   if (btn) btn.innerText = next === "light" ? "☀️ Light Theme" : "🌙 Dark Theme";
 }
+
+// ============================================================================
+// Hover Info Inspector Toggle State (Default: OFF)
+// ============================================================================
+function isHoverInfoEnabled() {
+  return document.body.classList.contains("hover-info-enabled");
+}
+
+function initHoverInfoToggle() {
+  const saved = localStorage.getItem("dairy_studio_hover_info");
+  // Default to OFF ("false") so info on hover only works when toggled on
+  const isEnabled = saved === "true";
+  applyHoverInfoState(isEnabled);
+}
+
+function applyHoverInfoState(enable) {
+  const btn = document.getElementById("hover-toggle-btn");
+  const icon = document.getElementById("hover-toggle-icon");
+  const text = document.getElementById("hover-toggle-text");
+
+  if (enable) {
+    document.body.classList.add("hover-info-enabled");
+    if (btn) {
+      btn.classList.add("hover-active");
+      btn.title = "Hover Info Inspector is ACTIVE (click to turn OFF)";
+    }
+    if (icon) icon.textContent = "✨";
+    if (text) text.textContent = "Hover Info: On";
+  } else {
+    document.body.classList.remove("hover-info-enabled");
+    if (btn) {
+      btn.classList.remove("hover-active");
+      btn.title = "Hover Info Inspector is OFF (click to turn ON)";
+    }
+    if (icon) icon.textContent = "🔍";
+    if (text) text.textContent = "Hover Info: Off";
+    hidePopover();
+  }
+}
+
+let _lastHoverToggleTime = 0;
+function toggleHoverInfo(e) {
+  if (e && e.stopPropagation) e.stopPropagation();
+  const now = Date.now();
+  if (now - _lastHoverToggleTime < 200) return; // Prevent any double-firing
+  _lastHoverToggleTime = now;
+
+  const currentlyEnabled = isHoverInfoEnabled();
+  const nextState = !currentlyEnabled;
+  localStorage.setItem("dairy_studio_hover_info", nextState ? "true" : "false");
+  applyHoverInfoState(nextState);
+}
+
+window.toggleHoverInfo = toggleHoverInfo;
 
 // ============================================================================
 // Sidebar Navigation (8 Modules)
@@ -1285,6 +1340,14 @@ const INFO_CATALOG = {
     grid: { "Default": "Light Theme", "Storage Key": "dairy_studio_theme", "Mode": "CSS Data Attribute" },
     rule: "Instant token swap without page reload"
   },
+  hover_toggle: {
+    category: "STUDIO INSPECTOR",
+    pill: "ON / OFF TOGGLE",
+    title: "Hover Info Inspector",
+    desc: "Toggles intelligent DBMS schema and telemetry hover popovers on demand. Keeps interface completely clean when switched off.",
+    grid: { "Default": "Off", "Storage Key": "dairy_studio_hover_info", "Mode": "Delegated Popover Engine" },
+    rule: "Reveals live MySQL constraints and entity definitions"
+  },
   btn_register_cattle: {
     category: "TRANSACTION DISPATCHER",
     pill: "Atomic INSERT",
@@ -2280,6 +2343,7 @@ function positionPopover(e) {
 }
 
 function showPopover(data, e) {
+  if (!isHoverInfoEnabled()) return;
   const popover = document.getElementById("global-info-popover");
   if (!popover || !data) return;
 
@@ -2340,6 +2404,7 @@ function initInfoHoverEngine() {
 
   // Global delegated mouseover listener
   document.addEventListener("mouseover", (e) => {
+    if (!isHoverInfoEnabled()) return;
     const target = e.target.closest("[data-info-key], [data-info-entity], .info-hover-icon");
     if (!target) return;
 
@@ -2352,7 +2417,7 @@ function initInfoHoverEngine() {
 
   // Global mousemove listener for smooth tracking
   document.addEventListener("mousemove", (e) => {
-    if (!activeHoverEl) return;
+    if (!isHoverInfoEnabled() || !activeHoverEl) return;
     positionPopover(e);
   });
 
